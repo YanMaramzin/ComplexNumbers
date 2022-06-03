@@ -15,7 +15,7 @@ class Complex{
     /**
     * @brief Complex конструктор по умолчанию
     */
-    Complex()
+    Complex():re(0),im(0)
     {}
     /**
     * @brief Complex конструктор с одним параметром для вещественной части
@@ -31,6 +31,7 @@ class Complex{
     /**
     * @brief Complex конструктор копирования
     */
+
     Complex (const Complex& c):re(c.re),im(c.im)
     {}
     /**
@@ -94,11 +95,19 @@ class Complex{
         return in;
     }
 
-
-    Complex& operator+=(Complex a)
+    template<typename U>
+    Complex<Type>& operator=(const Complex<U>& c)
     {
-        re+=a.re;
-        im+=a.im;
+        re=c.real();
+        im=c.imag();
+        return *this;
+    }
+
+    template<typename U>
+    Complex<Type>& operator+=(const Complex<U>& c)
+    {
+        re+=c.real();
+        im+=c.imag();
         return *this;
     }
 
@@ -108,10 +117,18 @@ class Complex{
         return *this;
     }
 
-    Complex& operator-=(Complex a)
+    template<typename U>
+    Complex<Type>& operator-=(const Complex<U> c)
     {
-        re-=a.re;
-        im-=a.im;
+        re-=c.real();
+        im-=c.imag();
+        return *this;
+    }
+
+    template<typename U>
+    Complex<Type>& operator-=(const U a)
+    {
+        re-=a;
         return *this;
     }
 
@@ -157,57 +174,81 @@ class Complex{
 
     bool operator==(const Complex<Type> &c) const;
 
+
+
     private:
     Type re;
     Type im;
 };
 
 
-template<class T>
-Complex<T>& operator+(Complex<T> c1,Complex<T> c2)
+
+
+template<typename T, typename U>
+Complex<T> operator+(Complex<T> c1, Complex<U> c2)
 {
     Complex<T> r=c1;
     return r+=c2;
 }
 
-template<class T>
-Complex<T>& operator+(Complex<T> c1,T c2)
+
+template<typename T, typename U>
+Complex<T>& operator+(Complex<T> c1,U c2)
 {
     Complex<T> r=c1;
     return r+=c2;
 }
 
-template<class T>
-Complex<T>& operator+(T c1,Complex<T> c2)
+
+template<typename T, typename U>
+Complex<U>& operator+(T c1,Complex<U> c2)
 {
-    Complex<T> r=c2;
+    Complex<U> r=c2;
     return r+=c1;
 }
 
-template<class T>
-Complex<T>& operator-(Complex<T> c1,Complex<T> c2)
+template<typename T, typename U>
+Complex<T>& operator-(Complex<T> c1, Complex<U> c2)
 {
     Complex<T> r=c1;
     return r-=c2;
 }
 
-template<class T>
-Complex<T>& operator-(Complex<T> c1,T c2)
+template<typename T, typename U>
+Complex<T>& operator-(Complex<T> c1,U c2)
 {
     Complex<T> r=c1;
     return r-=c2;
 }
 
-template<class T>
-Complex<T>& operator-(T c1,Complex<T> c2)
+
+template<typename T, typename U>
+Complex<T>& operator-(T c1,const Complex<U>& c2)
 {
-    Complex<T> r=c2;
-    return r-=c1;
+   Complex<T> r=c1;
+   return r-=c2;;
 }
+
+
+//template<class T>
+//Complex<T>& operator-(Complex<T> c1,T c2)
+//{
+//    Complex<T> r=c1;
+//    return r-=c2;
+//}
+
+//template<class T>
+//Complex<T>& operator-(T c1,Complex<T> c2)
+//{
+//    Complex<T> r=c2;
+//    return r-=c1;
+//}
 
 template<class T>
 bool Complex<T>::operator==(const Complex<T> &c) const
 {
     return (re == c.re && im == c.im);
 }
+
+
 #endif
