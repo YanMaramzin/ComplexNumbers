@@ -299,6 +299,180 @@ TEST(ComplexTests,UnaryMinus)
 
 }
 
+/**
+* @brief Тест, который проверяет правильно ли складываются объекты класса Complex разных типов
+*/
+
+TEST(ComplexTests,ComplexTplusComplexU)
+{
+    Complex<short> testedObject1(1,1);
+    Complex<int> testedObject2(1,1);
+    Complex<float> testedObject3(1,1);
+    Complex<double> testedObject4(1,1);
+    Complex<float> testedObject5(1.5f,1.3f);
+    Complex<double> testedObject6(2.8,1.9);
+
+    Complex<short> s;
+    s=testedObject1+testedObject2;
+    ASSERT_EQ(s.real(),2);
+    ASSERT_EQ(s.imag(),2);
+
+    Complex<int> s1;
+    s1=testedObject1+testedObject2;
+    ASSERT_EQ(s1.real(),2);
+    ASSERT_EQ(s1.imag(),2);
+
+    Complex<float> s3;
+    s3=testedObject3+testedObject4;
+    ASSERT_EQ(s3.real(),2.0f);
+    ASSERT_EQ(s3.imag(),2.0f);
+
+    Complex<double> s4;
+    s4=testedObject4+testedObject3;
+    ASSERT_EQ(s4.real(),2.0);
+    ASSERT_EQ(s4.imag(),2.0);
+
+    Complex<double> s5;
+    s5=testedObject1+testedObject4;
+    ASSERT_EQ(s5.real(),2.0);
+    ASSERT_EQ(s5.imag(),2.0);
+
+    Complex<int> s6;
+    s6=testedObject5+testedObject6;
+    ASSERT_EQ(s6.real(),4);
+    ASSERT_EQ(s6.imag(),3);
+}
+
+/**
+* @brief Тест, который проверяет правильно ли работает оператор - для объектов класса Complex разных типов
+*/
+
+TEST(ComplexTests,ComplexTminusComplexU)
+{
+    Complex<short> testedObject1(2,2);
+    Complex<int> testedObject2(1,1);
+    Complex<float> testedObject3(3.1,1.5);
+    Complex<double> testedObject4(1.0,1.9);
+    Complex<float> testedObject5(1.5f,1.3f);
+    Complex<double> testedObject6(2.8,1.9);
+
+    Complex<short> s;
+    s=testedObject1-testedObject2;
+    ASSERT_EQ(s.real(),1);
+    ASSERT_EQ(s.imag(),1);
+
+    Complex<int> s1;
+    s1=testedObject2-testedObject1;
+    ASSERT_EQ(s1.real(),-1);
+    ASSERT_EQ(s1.imag(),-1);
+
+    Complex<float> s3;
+    s3=testedObject3-testedObject4;
+    ASSERT_EQ(s3.real(),2.1f);
+    ASSERT_EQ(s3.imag(),-0.4f);
+
+
+
+    Complex<double> s5;
+    s5=testedObject1-testedObject4;
+    ASSERT_EQ(s5.real(),1.0);
+    ASSERT_EQ(s5.imag(),0);
+
+    Complex<int> s6;
+    s6=testedObject5-testedObject6;
+    ASSERT_EQ(s6.real(),-1);
+    ASSERT_EQ(s6.imag(),0);
+}
+
+/**
+* @brief Тест, который проверяет правильно ли складываются объекты класса Complex и числа разных типов
+*/
+
+TEST(ComplexTests,TplusComplexU)
+{
+    Complex<short> testedObject1(2,2);
+    Complex<int> testedObject2(1,1);
+    Complex<float> testedObject3(3.1,1.5);
+    Complex<double> testedObject4(1.0,1.9);
+
+
+    ASSERT_EQ((testedObject1+5.5).real(),7);
+    ASSERT_EQ((testedObject1+5.5).imag(),2);
+    ASSERT_EQ((testedObject1+1).real(),3);
+
+    ASSERT_EQ((testedObject2+5.5).real(),6);
+    ASSERT_EQ((testedObject2+3).real(),4);
+
+    ASSERT_EQ((testedObject3+5.5).real(),8.6f);
+    ASSERT_EQ((testedObject3+1).real(),4.1f);
+
+    ASSERT_EQ((testedObject4+5.5).real(),6.5);
+    ASSERT_EQ((testedObject4+5.5).imag(),1.9);
+    ASSERT_EQ((testedObject4+1).real(),2);
+
+    ASSERT_EQ((5.5+testedObject1).real(),7);
+    ASSERT_EQ((5.5+testedObject1).imag(),2);
+    ASSERT_EQ((1+testedObject1).real(),3);
+
+    ASSERT_EQ((5.5+testedObject2).real(),6);
+    ASSERT_EQ((3+testedObject2).real(),4);
+
+    ASSERT_EQ((5.5+testedObject3).real(),8.6f);
+    ASSERT_EQ((1+testedObject3).real(),4.1f);
+
+    ASSERT_EQ((5.5+testedObject4).real(),6.5);
+    ASSERT_EQ((5.5+testedObject4).imag(),1.9);
+    ASSERT_EQ((1+testedObject4).real(),2);
+}
+
+/**
+* @brief Тест, который проверяет правильно ли вычитаются объекты класса Complex разных типов и числа разных типов
+*/
+
+TEST(ComplexTests,TminusComplexU)
+{
+    Complex<short> testedObject1(2,2);
+    Complex<int> testedObject2(1,1);
+    Complex<float> testedObject3(3.1,1.5);
+    Complex<double> testedObject4(1.0,1.9);
+
+
+    ASSERT_EQ((testedObject1-5.5).real(),-3);
+    ASSERT_EQ((testedObject1-5.5).imag(),2);
+    ASSERT_EQ((testedObject1-1).real(),1);
+
+    ASSERT_EQ((testedObject2-5.5).real(),-4);
+    ASSERT_EQ((testedObject2-3).real(),-2);
+
+    ASSERT_EQ((testedObject3-5.5).real(),-2.4f);
+    ASSERT_EQ((testedObject3-1).real(),2.1f);
+
+    ASSERT_EQ((testedObject4-5.5).real(),-4.5);
+    ASSERT_EQ((testedObject4-5.5).imag(),1.9);
+    ASSERT_EQ((testedObject4-2).real(),-1.0);
+
+    ASSERT_EQ((5.5-testedObject1).real(),3.5);
+    ASSERT_EQ((5.5-testedObject1).imag(),-2);
+    ASSERT_EQ((1-testedObject1).real(),-1);
+
+    ASSERT_EQ((5.5-testedObject2).real(),4.5);
+    ASSERT_EQ((3-testedObject2).real(),2);
+
+
+    ASSERT_EQ((1-testedObject3).real(),-2);
+
+    ASSERT_EQ((5.5-testedObject4).real(),4.5);
+    ASSERT_EQ((5.5-testedObject4).imag(),-1.9);
+    ASSERT_EQ((2-testedObject4).real(),1.0);
+}
+
+
+/**
+* @brief проверяет можно ли передать массив класса Complex в файл
+* и чтение из файла с последующей записью в новый массив и сравнение
+* значений элементов старого и нового массива
+*/
+
 
 /**
 * @brief проверяет можно ли передать массив класса Complex в файл
